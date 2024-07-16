@@ -1,6 +1,7 @@
 # PhotoFolio
 
-![PhotoFolio](path-to-your-image) <!-- Replace this with the actual path to your image -->
+![PhotoFolio](photo1.png)
+![PhotoFolio](photo2.png)
 
 PhotoFolio is an online photo album application that allows users to upload, organize, and share their digital photos. The application is built with React and Firebase.
 
