@@ -28,6 +28,7 @@
   border: 2px solid rgb(0, 119, 255);
   cursor: pointer;
 }
+
 .top .active {
   color: rgb(255, 19, 0);
   background-color: rgba(255, 19, 0, 0.1);
@@ -78,6 +79,7 @@
   border-color: #0077ff;
   color: #fff;
 }
+
 .album:hover span {
   background-color: #0077ff;
 }
