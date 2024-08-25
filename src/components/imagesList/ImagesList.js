@@ -71,6 +71,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
     if (activeImageIndex === 0) return setActiveImageIndex(images.length - 1);
     setActiveImageIndex((prev) => prev - 1);
   };
+
   const handleCancel = () => setActiveImageIndex(null);
 
   const handleSearchClick = () => {
@@ -82,10 +83,12 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
   };
 
   const handleSearch = async () => {
-    const query = searchInput.current.value;
+    const query = searchInput.current.value.trim();
     if (!query) return IMAGES;
 
-    const filteredImages = IMAGES.filter((i) => i.title.includes(query));
+    const filteredImages = IMAGES.filter((i) =>
+      i.title.toLowerCase().includes(query.toLowerCase())
+    );
     setImages(filteredImages);
   };
 
@@ -104,6 +107,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
   };
 
   const handleUpdate = async ({ title, url }) => {
+    //
     setImgLoading(true);
     const imageRef = doc(db, "albums", albumId, "images", updateImageIntent.id);
 
@@ -150,6 +154,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
             {!addImageIntent ? "Add image" : "Cancel"}
           </button>
         </div>
+
         {addImageIntent && (
           <ImageForm
             loading={imgLoading}
@@ -160,6 +165,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
       </>
     );
   }
+
   return (
     <>
       {(addImageIntent || updateImageIntent) && (
@@ -171,6 +177,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
           updateIntent={updateImageIntent}
         />
       )}
+
       {(activeImageIndex || activeImageIndex === 0) && (
         <Carousel
           title={images[activeImageIndex].title}
@@ -180,6 +187,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
           onCancel={handleCancel}
         />
       )}
+
       <div className={styles.top}>
         <span onClick={onBack}>
           <img src="/assets/back.png" alt="back" />
@@ -195,12 +203,14 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
               autoFocus={true}
             />
           )}
+
           <img
             onClick={handleSearchClick}
             src={!searchIntent ? "/assets/search.png" : "/assets/clear.png"}
             alt="clear"
           />
         </div>
+
         {updateImageIntent && (
           <button
             className={styles.active}
@@ -209,6 +219,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
             Cancel
           </button>
         )}
+
         {!updateImageIntent && (
           <button
             className={`${addImageIntent && styles.active}`}
@@ -218,11 +229,13 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
           </button>
         )}
       </div>
+
       {loading && (
         <div className={styles.loader}>
           <Spinner color="#0077ff" />
         </div>
       )}
+
       {!loading && (
         <div className={styles.imageList}>
           {images.map((image, i) => (
@@ -244,6 +257,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
               >
                 <img src="/assets/edit.png" alt="update" />
               </div>
+
               <div
                 className={`${styles.delete} ${
                   activeHoverImageIndex === i && styles.active
@@ -252,6 +266,7 @@ export const ImagesList = ({ albumId, albumName, onBack }) => {
               >
                 <img src="/assets/trash-bin.png" alt="delete" />
               </div>
+
               <img
                 src={image.url}
                 alt={image.title}
