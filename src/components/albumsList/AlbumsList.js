@@ -2,8 +2,6 @@ import styles from "./albumsList.module.css";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import Spinner from "react-spinner-material";
-
-// firebase imports
 import {
   collection,
   getDocs,
@@ -14,7 +12,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
-import { doc} from "firebase/firestore";
+import { doc } from "firebase/firestore";
 // components imports
 import { AlbumForm } from "../albumForm/AlbumForm";
 import { ImagesList } from "../imagesList/ImagesList";
@@ -25,8 +23,8 @@ import { ImagesList } from "../imagesList/ImagesList";
 export const AlbumsList = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(false);
- 
   const [albumAddLoading, setAlbumAddLoading] = useState(false);
+
   const getAlbums = async () => {
     setLoading(true);
     const albumsRef = collection(db, "albums");
@@ -34,21 +32,19 @@ export const AlbumsList = () => {
       query(albumsRef, orderBy("created", "desc"))
     );
 
-    const albumsData = albumsSnapshot.docs.map((doc) =>({
+    const albumsData = albumsSnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    // deleteentry(albumsData)
 
     setAlbums(albumsData);
     setLoading(false);
-    // deleteentry();
   };
-  const deleteentry = async (id) => { 
-      await deleteDoc(doc(db, "albums", `${id}`));
-  }
 
-  
+  const deleteentry = async (id) => {
+    await deleteDoc(doc(db, "albums", `${id}`));
+  };
+
   useEffect(() => {
     getAlbums();
   }, []);
@@ -90,6 +86,7 @@ export const AlbumsList = () => {
       </>
     );
   }
+
   if (loading) {
     return (
       <div className={styles.loader}>
@@ -103,6 +100,7 @@ export const AlbumsList = () => {
       {createAlbumIntent && !activeAlbum && (
         <AlbumForm loading={albumAddLoading} onAdd={handleAdd} />
       )}
+
       {!activeAlbum && (
         <div>
           <div className={styles.top}>
@@ -114,6 +112,7 @@ export const AlbumsList = () => {
               {!createAlbumIntent ? "Add album" : "Cancel"}
             </button>
           </div>
+
           <div className={styles.albumsList}>
             {albums.map((album) => (
               <div
@@ -128,6 +127,7 @@ export const AlbumsList = () => {
           </div>
         </div>
       )}
+
       {activeAlbum && (
         <ImagesList
           albumId={albums.find((a) => a.name === activeAlbum).id}
