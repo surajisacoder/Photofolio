@@ -1,17 +1,20 @@
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBvXcmjqkNfMS0UGvNrjDSK9P-IFUpe5vs",
-  authDomain: "photofolio-23d04.firebaseapp.com",
-  projectId: "photofolio-23d04",
-  storageBucket: "photofolio-23d04.appspot.com",
-  messagingSenderId: "358983786647",
-  appId: "1:358983786647:web:2a119d209bb220782489d2",
-  measurementId: "G-XD69QY5C3R",
+  apiKey: "AIzaSyDeYdWnVGztccrjz5xvlE2-jAvOKcr5Ge8",
+  authDomain: "photofolio-80725.firebaseapp.com",
+  projectId: "photofolio-80725",
+  storageBucket: "photofolio-80725.appspot.com",
+  messagingSenderId: "271267355739",
+  appId: "1:271267355739:web:9c772dab5a355cd789737e",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 export { db };
